@@ -7,7 +7,7 @@ namespace TechJobsConsole
 {
     class JobData
     {
-        static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>();
+        static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>();  // use this List to iterate over each Dictionary 
         static bool IsDataLoaded = false;
 
         public static List<Dictionary<string, string>> FindAll()
@@ -138,5 +138,31 @@ namespace TechJobsConsole
 
             return rowValues.ToArray();
         }
+        public static List<Dictionary<string, string>> FindByValue(string value)
+        {
+            LoadData();
+
+            List<Dictionary<string, string>> jobList = new List<Dictionary<string, string>>(); //holds user-curated list. used to return answer
+
+
+            foreach (Dictionary<string, string> row in AllJobs) // matches the conviention set above in FindByColumnAndValues()
+            {
+                foreach (KeyValuePair<string,string> term in row)
+                {
+                    string match = term.ToString();
+                    string supyo = match.ToUpper();
+                    value = value.ToUpper();
+                    if (supyo.Contains(value) ==  true)
+                    {
+                        jobList.Add(row);
+                    }
+                }
+            }
+            return jobList;
+
+
+
+        }
+
     }
 }

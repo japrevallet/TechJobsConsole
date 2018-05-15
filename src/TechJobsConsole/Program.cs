@@ -63,7 +63,8 @@ namespace TechJobsConsole
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        searchResults = JobData.FindByValue(searchTerm);
+                        PrintJobs(searchResults);
                     }
                     else
                     {
@@ -88,21 +89,21 @@ namespace TechJobsConsole
             {
                 choiceKeys[i] = choice.Key;
                 i++;
-            }
+            } // 
 
             do
             {
-                Console.WriteLine("\n" + choiceHeader + " by:");
+                Console.WriteLine("\n" + choiceHeader + " by:"); // first line of user seen code. Uses hardcoded actionChoices the first time. The output, actionChoice (a dictionary("search","Search") or dictionary("list","List")) will be used the second time to input columnChoices, and return columnChoice
 
                 for (int j = 0; j < choiceKeys.Length; j++)
                 {
                     Console.WriteLine(j + " - " + choices[choiceKeys[j]]);
-                }
+                } // iritates through and prints Key names from dictionary nexted to assigned values for user
 
-                string input = Console.ReadLine();
-                choiceIdx = int.Parse(input);
+                string input = Console.ReadLine(); //saves user input as string
+                choiceIdx = int.Parse(input);  // saves int value of user input
 
-                if (choiceIdx < 0 || choiceIdx >= choiceKeys.Length)
+                if (choiceIdx < 0 || choiceIdx >= choiceKeys.Length) // is this a cute way of making sure choiceIdx is never greater than 1?
                 {
                     Console.WriteLine("Invalid choices. Try again.");
                 }
@@ -113,12 +114,38 @@ namespace TechJobsConsole
 
             } while (!isValidChoice);
 
-            return choiceKeys[choiceIdx];
+            return choiceKeys[choiceIdx]; // returns ??? actionChoice = ? collumnChoice = ?
         }
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
-        {
-            Console.WriteLine("printJobs is not implemented yet");
+        { 
+           // List<Dictionary<string, string>> jobList = new List<Dictionary<string, string>>();      use this in your FindByValue()
+           // Dictionary<string, string> jobContent = new Dictionary<string, string> { };
+
+
+            foreach (Dictionary<string, string> someJob in someJobs)  //goes into each job listing
+            {
+                Console.WriteLine("\n");
+                Console.WriteLine("*************************************");
+                Console.WriteLine("*************************************");
+                Console.WriteLine("\n");
+                foreach (KeyValuePair<string, string> job in someJob) // goes into each data field for every individual dictionary
+                {
+                    string jobKey = ""; 
+                    string jobValue = "";
+
+                    jobKey = job.Key;
+                    jobValue = job.Value;
+
+                    
+                    Console.WriteLine(jobKey + ": " + jobValue);
+
+                }
+            }
+            Console.WriteLine("\n");
+            Console.WriteLine("*************************************");
+            Console.WriteLine("*************************************");
+
         }
     }
 }
