@@ -41,6 +41,7 @@ namespace TechJobsConsole
         public static List<Dictionary<string, string>> FindByColumnAndValue(string column, string value)
         {
             // load data, if not already loaded
+            // this is the change
             LoadData();
 
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
